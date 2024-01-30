@@ -12,15 +12,14 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/sh.l")
 @RequiredArgsConstructor
 public class ShortenerController {
-    //+Переименовать, посмотри на названия сущностей и сервисов они работают с одной сущностью а контроллер вообще называется абстрактно
     private final LinkService linkService;
 
-    @GetMapping("/{id}")//+информативней эндпоинт
+    @GetMapping("/{id}")
     public RedirectView redirectToOriginalLink(@PathVariable("id") Long id) {
         return new RedirectView(linkService.getLink(id).getReference());
     }
 
-    @PostMapping(value = "/create") //+переименовать
+    @PostMapping(value = "/create")
     @ResponseBody
     public ResponseEntity<LinkDto> createShortLink(@RequestBody LinkDto linkDto) {
         return ResponseEntity.status(HttpStatus.OK).body(linkService.createShortLink(linkDto));

@@ -1,0 +1,25 @@
+version: "1.0"
+
+volumes:
+  postgres_volume:
+
+services:
+  shortener:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "8088:8088"
+  postgres:
+    image: "postgres:14.5-alpine"
+    restart: always
+    ports:
+      - "5433:5433"
+    environment:
+      POSTGRES_DB: storageLinks_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      PGDATA: /data/pgdata
+    volumes:
+      - postgres_volume:/data/pgdata

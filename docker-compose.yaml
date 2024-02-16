@@ -1,25 +1,28 @@
-version: "1.0"
+version: "3.3"
 
 volumes:
-  postgres_volume:
+  db_volume:
 
 services:
   shortener:
     build: .
+    container_name: shortener_app
     restart: always
     depends_on:
-      - postgres
+      - db
     ports:
-      - "8088:8088"
-  postgres:
+      - "8080:8080"
+
+  db:
     image: "postgres:14.5-alpine"
+    container_name: postgres_db
     restart: always
     ports:
-      - "5433:5433"
+      - "5433:5432"
     environment:
       POSTGRES_DB: storageLinks_db
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      PGDATA: /data/pgdata
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data
     volumes:
-      - postgres_volume:/data/pgdata
+      - db_volume:/var/lib/postgresql/data

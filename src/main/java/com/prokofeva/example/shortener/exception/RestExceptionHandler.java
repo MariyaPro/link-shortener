@@ -37,10 +37,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ValidationErrorResponse(violations);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ValidationErrorResponse handleValidationLinkDtoException(MethodArgumentNotValidException e) {
+    public ValidationErrorResponse handleValidationMethodException(MethodArgumentNotValidException e) {
         final List<Violation> violations = e.getBindingResult().getFieldErrors().stream()
                 .map(error -> new Violation(error.getField(), error.getDefaultMessage()))
                 .collect(Collectors.toList());

@@ -5,6 +5,7 @@ import com.prokofeva.example.shortener.doman.LinkDto;
 import com.prokofeva.example.shortener.exception.LinkNotFoundException;
 import com.prokofeva.example.shortener.repository.LinkRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,12 @@ public class LinkService {
     private final LinkRepository linkRepository;
     private final LinkMapper linkMapper;
 
-    @Value(value = "${servicePrefix}")
-    private String linkPrefix; //+перенести в сервис, никакие переменные не должны быть в сущности, сущьность это  POJO (почитай)
+    @Value("${servicePrefix}")
+    @Setter
+    private String linkPrefix;
 
-    public LinkDto getLink(Long id) { //Long
+    public LinkDto getLink(Long id) {
         return linkMapper.convertToDto(linkRepository.findById(id).orElseThrow(() -> new LinkNotFoundException(id)));
-        //Конкретизируй какое exc ты выбрасываешь,
-        //почитай что написано в RestExceptionHandler, и синхронизируй с этим методом
     }
 
     public LinkDto createShortLink(LinkDto linkDto) {

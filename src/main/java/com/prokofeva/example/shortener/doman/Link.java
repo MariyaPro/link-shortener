@@ -11,14 +11,9 @@ import javax.persistence.*;
 public class Link {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "reference")
-//+ правила хорошего тона писать название колонки, если кто-то изменить название переменой колонка тоже поменяет название
-    //+с название в виде строки это будет сложнее сделать
     private String reference;
-
-    //Hibernate нужен пустой конструктор для создания сущностей, так что он должен быть (почитай про это и про аннотацию Lombok
-    // @NoArgsConstructor
 }

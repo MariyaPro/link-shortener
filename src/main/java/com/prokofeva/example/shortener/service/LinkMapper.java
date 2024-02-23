@@ -9,7 +9,7 @@ public class LinkMapper {
     public LinkDto convertToDto(Link link) {
         LinkDto linkDto = new LinkDto();
         linkDto.setReference(link.getReference());
-        return linkDto;//+ а обратно не надо для save?
+        return linkDto;
     }
 
     public Link convertToEntity(LinkDto linkDto) {
